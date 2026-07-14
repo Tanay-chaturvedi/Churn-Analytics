@@ -7,4 +7,5 @@ SELECT Contract,
 FROM customer_churn
 GROUP BY Contract
 HAVING AVG(MonthlyCharges) > 70;
-select paymentmethod,count(*) as member from customer_churn group by paymentmethod having member >1500;
+select paymentmethod,count(*) as member from customer_churn group by paymentmethod having member >1550;
+select contract, avg(monthlycharges) as charge from customer_churn group by contract having avg(monthlycharges)> 30;

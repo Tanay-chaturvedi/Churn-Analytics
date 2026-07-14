@@ -34,25 +34,18 @@ select round((select count(*) from customer_churn where Churn="Yes") / ( select 
 
 
 use customer_churn_db;
+select round(
+sum(case when churn="Yes" then 1 else 0 end)/count(*)*100,2) 
+as churn_rate from customer_churn;
 show tables;
-select round((select count(*) from customer_churn where Churn="Yes") / (select count(*) from customer_churn)*100,2);
 select count(*) from customer_churn group by contract;
 select contract, count(*) as total_customers from customer_churn group by contract;
-select contract, count(*) as churned_customer from customer_churn where Churn="Yes" group by contract;
-select contract, count(*) as total_customers, 
-sum(case
-		when Churn="Yes"
-        then 1
-        else 0
-	end
-)as churned_customers,
-round(
-		sum(case
-				when Churn="Yes"
-				then 1
-				else 0
-			end
-		)/count(*)*100,2) as churn_rate from customer_churn group by contract;
+select contract, count(*) as churned from customer_churn where churn="Yes" group by contract;
+        
+select contract, count(*) as total,count(case when churn="Yes" then 1 end) as churne_d, 
+	round(sum(case when churn="Yes" then 1 else 0 end)/count(*)*100,2) 
+	as churnPerCon from customer_churn group by contract;
+    
 select contract, round( avg(tenure),2)as avg_tenure from customer_churn group by contract;
 select contract, round( sum(revenue),2)as total_revenue from customer_churn group by contract;
 SELECT Contract, SUM(MonthlyCharges) AS total_revenue from customer_churn group by contract;
