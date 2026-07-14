@@ -26,3 +26,7 @@ select * from customer;
 select * from subscription;
 
 select c.name,s.contract,s.monthlycharges from customer c inner join subscription s on c.id=s.id;
+select c.name,s.contract,s.monthlycharges from customer c left join subscription s on c.id=s.id;
+select c.name,c.gender,s.contract from customer c left join subscription s on c.id=s.id;
+select c.name from customer c left join subscription s on c.id=s.id where s.contract is null;
+select c.name from customer c left join subscription s on c.id=s.id where s.id is null;
